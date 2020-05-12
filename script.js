@@ -112,6 +112,9 @@ deleteButton.addEventListener('click', function () {
 
 equalsButton.addEventListener('click', function () {
   compute();
+  curNum.innerText = prevNum.innerText.slice(0, -1);
+  prevNum.innerText = '';
+  humanInput = false;
 });
 
 operatorButtons.forEach((button) => {

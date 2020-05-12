@@ -1,11 +1,4 @@
-calculator bugs:
 
-1. when the top number has a  number and operator selected.. you can not switch the operator without restarting basically.
-
-if (top Num != '' && bottomNum == '' && operatorLoaded == true && another operator clicked) {
-	operator is changed to new operator
-}
-
-2. equals button not working
-
-
+special thanks to web dev simplified for the calculator tutorial on youtube.
+In this version, I took the idea from WDS but coded the logic in more of a functional programming style
+instead of Object oriented in the script.
