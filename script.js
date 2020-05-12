@@ -30,12 +30,35 @@ function appendNum(num) {
   curNum.innerText = curNum.innerText + num.toString();
 }
 
+//checks if 'mathSymbol' is a valid math operator in string format.
+function isOperator(mathSymbol) {
+  if (mathSymbol == '+' || mathSymbol == '-' || mathSymbol == '*' || mathSymbol == '÷' ) {
+    return true;
+  }
+ }
+
 function compute() {
   if (prevNum.innerText == '' && curNum.innerText == '') return; //wont allow operators showing up by themselves when no number
   
+  //Captures the operator
+  if (prevNum.innerText == '' && curNum.innerText !== '') {
+    console.log('condition on line 44 activated');
+    loadedOperator = operator;
+  }
+  console.log(loadedOperator);
+  
+  //allows operator change when number is loaded on top w other operator
+  if (prevNum.innerText != '' && curNum.innerText == '' && isOperator(loadedOperator) && operator != loadedOperator) {
+    console.log('condition on line 51 activated');
+    loadedOperator = operator; 
+    prevNum.innerText = prevNum.innerText.slice(0, -1) + loadedOperator;
+    return
+  }
+  
   // if statement that computes a ready state
   if (prevNum.innerText !== '' && curNum.innerText !== '') {
-    loadedOperator = prevNum.innerText.slice(-1);
+    loadedOperator = prevNum.innerText.slice(-1);  //!!!!-----the loadedOperator needs to be loaded when curnum IS emmpty!
+        console.log('condition on line 58 activated');
         
     //switch statement responsible for seeing the last operator and using it for a calculation when fields are full and new operator is pressed.
     switch (loadedOperator) {
@@ -62,9 +85,10 @@ function compute() {
   }
 
   if (humanInput == false) {
+    console.log('condition on line 87 acivated');
+    
     prevNum.innerText = `${curNum.innerText} ${operator}`;
     curNum.innerText = '';
-    console.log(loadedOperator);
     }
   
 }
@@ -96,3 +120,5 @@ operatorButtons.forEach((button) => {
     compute();
   });
 });
+
+
