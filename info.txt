@@ -1,4 +1,5 @@
+calculator project in vanilla javascript, html & css.
 
 special thanks to web dev simplified for the calculator tutorial on youtube.
-In this version, I took the idea from WDS but coded the logic in more of a functional programming style
+In this version, I took the idea from WDS but coded the logic in functional programming style
 instead of Object oriented in the script.
