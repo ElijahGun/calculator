@@ -28,9 +28,41 @@ function appendNum(num) {
 
 //checks if 'mathSymbol' is a valid math operator in string format.
 function isOperator(mathSymbol) {
-  if (mathSymbol == '+' || mathSymbol == '-' || mathSymbol == '*' || mathSymbol == '÷' ) {
+  if (mathSymbol == '+' || mathSymbol == '-' || mathSymbol == '*' || mathSymbol == '÷' || mathSymbol == '/') {
     return true;
   }
+ }
+
+ //checks if 'parameter' is a valid . or number.
+ function isNumber(x) {
+   switch (x) {
+     case '1':
+       return true;
+       break;
+     case '2':
+       return true;
+     case '3':
+       return true;
+      case '4':
+        return true;
+      case '5':
+        return true;
+      case '6':
+        return true;
+      case '7':
+        return true;
+      case '8':
+        return true;
+      case '9':
+        return true;
+      case '0':
+        return true;
+      case '.':
+        return true;
+     default:
+       return false;
+       break;
+   }
  }
 
 function compute() {
@@ -39,13 +71,18 @@ function compute() {
   //Captures the operator
   if (prevNum.innerText == '' && curNum.innerText !== '') {
     loadedOperator = operator;
+    console.log('1 executed');
+
   }
   
   //allows operator change when number is loaded on top w other operator
   if (prevNum.innerText != '' && curNum.innerText == '' && isOperator(loadedOperator) && operator != loadedOperator) {
     loadedOperator = operator; 
     prevNum.innerText = prevNum.innerText.slice(0, -1) + loadedOperator;
-    return
+    console.log('line 2 executed');
+    return // else if statement below fixes bug when operator pressed twice
+  } else if (prevNum.innerText != '' && curNum.innerText == '' && isOperator(loadedOperator) && operator == loadedOperator) {
+    humanInput = true;
   }
   
   // if statement that computes a ready state
@@ -70,15 +107,21 @@ function compute() {
         prevNum.innerText = parseFloat(prevNum.innerText) / parseFloat(curNum.innerText) + ' ' + operator.toString();
         curNum.innerText = '';
         break;
-      default:
+      case '/':
+        prevNum.innerText = parseFloat(prevNum.innerText) / parseFloat(curNum.innerText) + ' ' + operator.toString();
+        curNum.innerText = '';      default:
         break;
     }
     humanInput = true;
+    console.log('line 4 executed');
+    
   }
 
   if (humanInput == false) {
     prevNum.innerText = `${curNum.innerText} ${operator}`;
-    curNum.innerText = '';
+    curNum.innerText = '';   
+    console.log('line 5 executed');
+     
     }
   
 }
@@ -91,6 +134,28 @@ numberButtons.forEach((button) => {
     appendNum(button.innerText);
   });
 });
+
+//event listener for keyboard entry
+addEventListener('keydown', function (e) {
+  var keyPress = e.key;
+  console.log(keyPress.toString());
+  if (isOperator(keyPress)) {
+    operator = keyPress.toString();
+    compute();
+  } else if (isNumber(keyPress)) {
+    appendNum(keyPress);
+  } else if (keyPress == 'Delete') {
+    deleteNum();
+  } else if (keyPress == 'Backspace') {
+    clear()
+  } else if (keyPress == 'Enter') {
+    compute();
+    curNum.innerText = prevNum.innerText.slice(0, -1);
+    prevNum.innerText = '';
+    humanInput = false;
+  }
+  
+})
 
 allClearButton.addEventListener('click', function () {
   clear();
